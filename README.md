@@ -69,6 +69,10 @@ From the web UI:
 - Set `thickness`, `tolerance`, and `density`
 - Click **Generate STL** to download the generated `.stl` file
 
+### Web UI Preview
+
+![Web UI Screenshot](image.png)
+
 ## Desktop UI (Optional)
 
 You can also run a simple desktop interface (Tkinter) to select files and tune parameters without CLI flags:
