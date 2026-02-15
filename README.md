@@ -33,7 +33,7 @@ This utility converts an SVG file containing jigsaw puzzle paths into a 3D print
 Run the script `generate_stl.py` with the input SVG file:
 
 ```bash
-python generate_stl.py jigsaw.svg
+python generate_stl.py puzzle.svg
 ```
 
 ### Options
