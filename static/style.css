@@ -1,0 +1,252 @@
+:root {
+  --bg1: #f5f7ff;
+  --bg2: #fff4ec;
+  --card: rgba(255, 255, 255, 0.84);
+  --text: #14213d;
+  --muted: #4f5d75;
+  --accent: #ff6b35;
+  --accent-dark: #cb4f22;
+  --danger: #8a0f2e;
+  --danger-bg: #ffe3ea;
+  --border: rgba(20, 33, 61, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Manrope, "Avenir Next", "Segoe UI", sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top left, var(--bg2), transparent 40%),
+    radial-gradient(circle at right 20%, #e3f2fd, transparent 45%),
+    linear-gradient(160deg, var(--bg1), #f9fafb);
+  min-height: 100vh;
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.card {
+  width: min(760px, 100%);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  padding: 28px;
+  box-shadow: 0 18px 45px rgba(20, 33, 61, 0.12);
+}
+
+h1 {
+  margin: 0;
+  font-family: "Space Grotesk", Manrope, sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-family: "Space Grotesk", Manrope, sans-serif;
+}
+
+.sub {
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+form {
+  margin-top: 20px;
+  display: grid;
+  gap: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.field span {
+  font-size: 0.95rem;
+}
+
+input[type="file"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+}
+
+.preview {
+  display: grid;
+  gap: 10px;
+}
+
+.preview-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.preview-head span {
+  color: var(--muted);
+  font-size: 0.88rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.preview-box {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: linear-gradient(155deg, #ffffff, #f6f9ff);
+  min-height: 190px;
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  overflow: hidden;
+}
+
+.preview-box img {
+  max-width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+}
+
+.preview-box p {
+  margin: 0;
+  color: var(--muted);
+  text-align: center;
+}
+
+.param-guide {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: linear-gradient(165deg, #ffffff, #f7f8ff);
+  overflow: clip;
+}
+
+.param-guide summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px;
+  display: grid;
+  gap: 4px;
+}
+
+.param-guide summary::-webkit-details-marker {
+  display: none;
+}
+
+.param-guide summary span {
+  font-family: "Space Grotesk", Manrope, sans-serif;
+  font-size: 1rem;
+}
+
+.param-guide summary small {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.param-guide[open] summary {
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(160deg, #fdfdfd, #f2f6ff);
+}
+
+.guide-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.guide-head span {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.guide-body {
+  display: block;
+  padding: 12px 14px 14px 14px;
+}
+
+.guide-items p {
+  margin: 0 0 8px 0;
+  color: var(--text);
+  line-height: 1.35;
+  font-size: 0.93rem;
+}
+
+.guide-items p:last-child {
+  margin-bottom: 0;
+}
+
+button {
+  border: 0;
+  background: linear-gradient(135deg, var(--accent), #ff8a4c);
+  color: white;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(255, 107, 53, 0.28);
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+}
+
+.alert {
+  margin-top: 14px;
+  border: 1px solid #f8b6c7;
+  background: var(--danger-bg);
+  color: var(--danger);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+details {
+  margin-top: 12px;
+}
+
+pre {
+  max-height: 220px;
+  overflow: auto;
+  background: #0b132b;
+  color: #e0e1dd;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .preview-head {
+    display: grid;
+  }
+}

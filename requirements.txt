@@ -2,3 +2,4 @@ numpy
 shapely
 svgpathtools
 scipy
+Flask

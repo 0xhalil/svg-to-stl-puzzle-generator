@@ -54,6 +54,35 @@ Generate a puzzle with 0.2mm gap ( -0.1mm offset per piece), 4mm thickness:
 python generate_stl.py my_puzzle.svg -o output.stl --thickness 4.0 --tolerance -0.1
 ```
 
+## Web UI (Recommended)
+
+Run a local web server and use the browser interface:
+
+```bash
+python app.py
+```
+
+Then open: `http://127.0.0.1:5000`
+
+From the web UI:
+- Upload input `.svg`
+- Set `thickness`, `tolerance`, and `density`
+- Click **Generate STL** to download the generated `.stl` file
+
+## Desktop UI (Optional)
+
+You can also run a simple desktop interface (Tkinter) to select files and tune parameters without CLI flags:
+
+```bash
+python ui.py
+```
+
+From the UI:
+- Choose the input `.svg` file
+- Set output `.stl` path
+- Adjust `thickness`, `tolerance`, and `density`
+- Click **Generate STL** and follow the log output
+
 ## Requirements
 
 - Python 3.x

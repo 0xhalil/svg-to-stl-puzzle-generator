@@ -1,6 +1,7 @@
 import argparse
 import os
 import struct
+from types import SimpleNamespace
 import numpy as np
 from svgpathtools import svg2paths
 from shapely.geometry import LineString, Polygon
@@ -207,6 +208,17 @@ def process_puzzle(args):
     output_path = os.path.abspath(args.output)
     write_stl(all_triangles, output_path)
     print(f"Success! STL file saved to {output_path}")
+
+
+def generate_stl_from_svg(input_file, output_file, thickness=DEFAULT_THICKNESS, tolerance=DEFAULT_TOLERANCE, density=DEFAULT_DENSITY):
+    args = SimpleNamespace(
+        input_file=input_file,
+        output=output_file,
+        thickness=thickness,
+        tolerance=tolerance,
+        density=density,
+    )
+    process_puzzle(args)
 
 if __name__ == "__main__":
     args = parse_args()

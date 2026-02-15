@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Puzzle STL Web Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="card">
+        <h1>Puzzle STL Generator</h1>
+        <p class="sub">Upload SVG and download print-ready STL.</p>
+
+        {% if error %}
+        <div class="alert">{{ error }}</div>
+        {% endif %}
+
+        <form action="{{ url_for('generate') }}" method="post" enctype="multipart/form-data">
+          <label class="field">
+            <span>SVG File</span>
+            <input id="svg-file" type="file" name="svg_file" accept=".svg" required />
+          </label>
+
+          <section class="preview" id="svg-preview" aria-live="polite">
+            <div class="preview-head">
+              <h2>SVG Preview</h2>
+              <span id="preview-name">No file selected</span>
+            </div>
+            <div class="preview-box">
+              <img id="preview-image" alt="Selected SVG preview" hidden />
+              <p id="preview-placeholder">Choose an SVG to see preview.</p>
+            </div>
+          </section>
+
+          <details class="param-guide" aria-label="Parameter meanings">
+            <summary>
+              <span>Technical Parameter Guide</span>
+              <small>Open for definitions, geometry impact, and tuning notes</small>
+            </summary>
+            <div class="guide-body">
+              <div class="guide-items">
+                <p><strong>Thickness (mm):</strong> Extrusion height along the Z axis for every generated puzzle body.</p>
+                <p><strong>Tolerance (mm):</strong> 2D polygon offset before extrusion. Negative values shrink pieces to create assembly clearance.</p>
+                <p><strong>Density (mm/step):</strong> Discretization step for SVG segments. Smaller values increase vertex count and geometric fidelity.</p>
+                <p><strong>Rule of thumb:</strong> Start with <code>thickness=3.0</code>, <code>tolerance=-0.2</code>, <code>density=0.5</code>, then tune per printer and material.</p>
+              </div>
+            </div>
+          </details>
+
+          <div class="grid">
+            <label class="field">
+              <span>Thickness (mm)</span>
+              <input type="number" name="thickness" step="0.1" value="{{ values.get('thickness', '3.0') }}" required />
+            </label>
+
+            <label class="field">
+              <span>Tolerance (mm)</span>
+              <input type="number" name="tolerance" step="0.01" value="{{ values.get('tolerance', '-0.2') }}" required />
+            </label>
+
+            <label class="field">
+              <span>Density</span>
+              <input type="number" name="density" step="0.1" value="{{ values.get('density', '0.5') }}" required />
+            </label>
+          </div>
+
+          <button type="submit">Generate STL</button>
+        </form>
+
+        {% if logs %}
+        <details>
+          <summary>Generation Log</summary>
+          <pre>{{ logs }}</pre>
+        </details>
+        {% endif %}
+      </section>
+    </main>
+
+    <script>
+      const fileInput = document.getElementById("svg-file");
+      const previewImage = document.getElementById("preview-image");
+      const previewPlaceholder = document.getElementById("preview-placeholder");
+      const previewName = document.getElementById("preview-name");
+
+      fileInput.addEventListener("change", () => {
+        const [file] = fileInput.files;
+        if (!file) {
+          previewName.textContent = "No file selected";
+          previewImage.hidden = true;
+          previewImage.removeAttribute("src");
+          previewPlaceholder.hidden = false;
+          previewPlaceholder.textContent = "Choose an SVG to see preview.";
+          return;
+        }
+
+        if (!file.name.toLowerCase().endsWith(".svg")) {
+          previewName.textContent = file.name;
+          previewImage.hidden = true;
+          previewImage.removeAttribute("src");
+          previewPlaceholder.hidden = false;
+          previewPlaceholder.textContent = "Selected file is not an SVG.";
+          return;
+        }
+
+        const objectUrl = URL.createObjectURL(file);
+        previewImage.onload = () => URL.revokeObjectURL(objectUrl);
+        previewImage.src = objectUrl;
+        previewImage.hidden = false;
+        previewPlaceholder.hidden = true;
+        previewName.textContent = file.name;
+      });
+    </script>
+  </body>
+</html>
